@@ -80,7 +80,7 @@ cards_not_in_bib = set(titles).difference(mqg.list_of_cards)
 
 # Add cards to list
 for items in cards_not_in_bib:
-    mqg.current_list.add_card(items)
+    mqg.current_list.add_card(items, position='top')
     for card in range(0, len(mqg.current_list.list_cards())):
         if mqg.current_list.list_cards()[card].labels is None:
             mqg.current_list.list_cards()[card].create_label('Literature Review','blue')
