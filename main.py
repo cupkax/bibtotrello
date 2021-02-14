@@ -26,7 +26,7 @@ def get_titles(bib_dir):
 
 
 # Titles from bibliography file
-titles = get_titles('Dropbox/org/research/zotLib.bib')
+titles = get_titles('Dropbox/research/zotLib.bib')
 
 # Define Trello Client
 TRELLO_API_KEY = os.getenv('TRELLO_API_KEY')
