@@ -41,6 +41,7 @@ class TrelloBib():
     current_board = trello.Board
     current_list = trello.List
     list_of_cards = []
+    trello_member = trello.Member
 
     def __init__(self, board_name, list_name):
         self.board_name = board_name
@@ -60,10 +61,26 @@ class TrelloBib():
         for card in range(0, len(self.current_list.list_cards())):
             self.list_of_cards.append(self.current_list.list_cards()[card].name)
 
+    def add_label_to_card(self, labelname, labelcolour):
+        for card in range(0, len(self.current_list.list_cards())):
+            self.current_list.list_cards()[card].create_label(labelname, labelcolour)
+
+    def add_member(self, membername):
+        for member in self.current_board.all_members():
+            if member.full_name == membername:
+                return member
+
 
 # Define Board (classname(BoardName,ListName))
 mqg = TrelloBib('MQ Games Research', 'Literature')
 
+# Cards not in trello list
 cards_not_in_bib = set(titles).difference(mqg.list_of_cards)
+
+
+# Add cards to list
 for items in cards_not_in_bib:
     mqg.current_list.add_card(items)
+    for card in range(0, len(mqg.current_list.list_cards())):
+        if mqg.current_list.list_cards()[card].labels is None:
+            mqg.current_list.list_cards()[card].create_label('Literature Review','blue')
